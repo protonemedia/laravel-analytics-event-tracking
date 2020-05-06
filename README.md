@@ -6,11 +6,14 @@ https://twitter.com/pascalbaljet/status/1257926601339277312
 [![Quality Score](https://img.shields.io/scrutinizer/g/pascalbaljetmedia/laravel-analytics-event-tracking.svg?style=flat-square)](https://scrutinizer-ci.com/g/pascalbaljetmedia/laravel-analytics-event-tracking)
 [![Total Downloads](https://img.shields.io/packagist/dt/protonemedia/laravel-analytics-event-tracking.svg?style=flat-square)](https://packagist.org/packages/protonemedia/laravel-analytics-event-tracking)
 
-Laravel package to easily send events to Google Analytics
+Laravel package to easily send events to [Google Analytics](https://analytics.google.com/)
 
 ## Features
-* Use [Laravel Events](https://laravel.com/docs/7.x/events) to track events with Google Analytics
-* All API calls are queued.
+* Use [Laravel Events](https://laravel.com/docs/7.x/events) to track events with GA.
+* [Blade Directive](https://laravel.com/docs/7.x/blade#introduction) to easily store the Client ID.
+* Full access to the [underlying library](https://github.com/theiconic/php-ga-measurement-protocol).
+* API calls to GA are queued.
+* Easy to configure.
 * Compatible with Laravel 6.0 and 7.0.
 * PHP 7.4 required.
 
@@ -35,6 +38,24 @@ Set your [Google Analytics Tracking ID](https://support.google.com/analytics/ans
 ```bash
 GOOGLE_ANALYTICS_TRACKING_ID=UA-01234567-89
 ```
+
+## Blade Directive
+
+This package comes with a `@sendAnalyticsClientId` directive that stores the `Client ID` from the GA front-end to your Laravel backend. It uses the [Axios HTTP library](https://github.com/axios/axios) the make an asynchronous POST request. Axios was choosen as it is provided by default in the `resources/js/bootstrap.js` file.
+
+```php
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-01234567-89"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-01234567-89', { 'anonymize_ip': true, 'forceSSL': true });
+
+  @sendAnalyticsClientId
+</script>
+```
+
+If you don't use Axios, you have to implement this call by yourself.
 
 ## Broadcast Events to Google Analytics
 

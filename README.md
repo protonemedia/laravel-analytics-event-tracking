@@ -28,7 +28,7 @@ Publish the config and view files:
 php artisan vendor:publish --provider="ProtoneMedia\AnalyticsEventTracking\ServiceProvider"
 ```
 
-Set your [Google Analytics tracking ID](https://support.google.com/analytics/answer/1008080) in your `.env` file or in the `config/analytics-event-tracking.php` file.
+Set your [Google Analytics Tracking ID](https://support.google.com/analytics/answer/1008080) in the `.env` file or in the `config/analytics-event-tracking.php` file.
 
 ```bash
 GOOGLE_ANALYTICS_TRACKING_ID=UA-01234567-89
@@ -36,7 +36,7 @@ GOOGLE_ANALYTICS_TRACKING_ID=UA-01234567-89
 
 ## Broadcast Events to Google Analytics
 
-Just add the `ShouldBroadcastToAnalytics` interface to your event and you're ready!
+Add the `ShouldBroadcastToAnalytics` interface to your event and you're ready! You don't have to manually bind any listeners.
 
 ``` php
 <?php
@@ -93,7 +93,7 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
 
     public function withAnalytics(Analytics $analytics)
     {
-        $analytics->setEventValue(100);
+        $analytics->setEventValue($this->order->sum_in_cents * 100);
     }
 
     public function broadcastAnalyticsActionAs(Analytics $analytics)

@@ -23,6 +23,12 @@ class DispatchAnalyticsJob
      */
     public function handle(ShouldBroadcastToAnalytics $event): void
     {
-        SendEventToAnalytics::dispatch($event, $this->clientIdRepository->get());
+        $job = new SendEventToAnalytics($event, $this->clientIdRepository->get());
+
+        if ($queueName = config('analytics-event-tracking.queue_name')) {
+            $job->onQueue($queueName);
+        }
+
+        dispatch($job);
     }
 }

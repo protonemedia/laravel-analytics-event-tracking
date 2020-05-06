@@ -19,4 +19,18 @@ class EventListenerTest extends TestCase
 
         Bus::assertDispatchedTimes(SendEventToAnalytics::class, 1);
     }
+
+    /** @test */
+    public function it_can_dispatch_jobs_on_a_dedicated_queue()
+    {
+        Bus::fake();
+
+        config(['analytics-event-tracking.queue_name' => 'http']);
+
+        event(new BroadcastMe);
+
+        Bus::assertDispatched(SendEventToAnalytics::class, function ($job) {
+            return $job->queue === 'http';
+        });
+    }
 }

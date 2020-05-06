@@ -1,4 +1,5 @@
-# Very short description of the package
+# Laravel Analytics Event Tracking
+https://twitter.com/pascalbaljet/status/1257926601339277312
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/pascalbaljetmedia/laravel-analytics-event-tracking.svg?style=flat-square)](https://packagist.org/packages/pascalbaljetmedia/laravel-analytics-event-tracking)
 [![Build Status](https://img.shields.io/travis/pascalbaljetmedia/laravel-analytics-event-tracking/master.svg?style=flat-square)](https://travis-ci.org/pascalbaljetmedia/laravel-analytics-event-tracking)

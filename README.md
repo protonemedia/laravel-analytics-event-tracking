@@ -8,6 +8,10 @@ https://twitter.com/pascalbaljet/status/1257926601339277312
 
 Laravel package to easily send events to Google Analytics
 
+## Features
+* Compatible with Laravel 6.0 and 7.0.
+* PHP 7.4 required.
+
 ## Installation
 
 You can install the package via composer:
@@ -16,10 +20,87 @@ You can install the package via composer:
 composer require protonemedia/laravel-analytics-event-tracking
 ```
 
-## Usage
+## Configuration
+
+Publish the config and view files:
+
+```bash
+php artisan vendor:publish --provider="ProtoneMedia\AnalyticsEventTracking\ServiceProvider"
+```
+
+Set your [Google Analytics tracking ID](https://support.google.com/analytics/answer/1008080) in your `.env` file or in the `config/analytics-event-tracking.php` file.
+
+```bash
+GOOGLE_ANALYTICS_TRACKING_ID=UA-01234567-89
+```
+
+## Broadcast Events to Google Analytics
+
+Just add the `ShouldBroadcastToAnalytics` interface to your event and you're ready!
 
 ``` php
+<?php
 
+namespace App\Events;
+
+use App\Order;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use ProtoneMedia\AnalyticsEventTracking\Events\ShouldBroadcastToAnalytics;
+
+class OrderWasPaid implements ShouldBroadcastToAnalytics
+{
+    use Dispatchable, SerializesModels;
+
+    public $order;
+
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+}
+```
+
+## Customize the broadcast
+
+There are two additional methods that lets you customize the call to Google Analytics.
+
+With the `withAnalytics` you can interact with the [underlying package](https://github.com/theiconic/php-ga-measurement-protocol) to set additional parameters. Take a look at the `TheIconic\Tracking\GoogleAnalytics\Analytics` class to see the available methods.
+
+With the `broadcastAnalyticsActionAs` you can customize the name of the [Event Action](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#eventAction). By default we use the class name with the class's namespace removed. This method gives you access to the underlying `Analytics` class as well.
+
+``` php
+<?php
+
+namespace App\Events;
+
+use App\Order;
+use TheIconic\Tracking\GoogleAnalytics\Analytics;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use ProtoneMedia\AnalyticsEventTracking\Events\ShouldBroadcastToAnalytics;
+
+class OrderWasPaid implements ShouldBroadcastToAnalytics
+{
+    use Dispatchable, SerializesModels;
+
+    public $order;
+
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+
+    public function withAnalytics(Analytics $analytics)
+    {
+        $analytics->setEventValue(100);
+    }
+
+    public function broadcastAnalyticsActionAs(Analytics $analytics)
+    {
+        return 'CustomEventAction';
+    }
+}
 ```
 
 ### Testing

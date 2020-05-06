@@ -9,6 +9,8 @@ https://twitter.com/pascalbaljet/status/1257926601339277312
 Laravel package to easily send events to Google Analytics
 
 ## Features
+* Use [Laravel Events](https://laravel.com/docs/7.x/events) to track events with Google Analytics
+* All API calls are queued.
 * Compatible with Laravel 6.0 and 7.0.
 * PHP 7.4 required.
 
@@ -65,9 +67,9 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
 
 There are two additional methods that lets you customize the call to Google Analytics.
 
-With the `withAnalytics` you can interact with the [underlying package](https://github.com/theiconic/php-ga-measurement-protocol) to set additional parameters. Take a look at the `TheIconic\Tracking\GoogleAnalytics\Analytics` class to see the available methods.
+With the `withAnalytics` method you can interact with the [underlying package](https://github.com/theiconic/php-ga-measurement-protocol) to set additional parameters. Take a look at the `TheIconic\Tracking\GoogleAnalytics\Analytics` class to see the available methods.
 
-With the `broadcastAnalyticsActionAs` you can customize the name of the [Event Action](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#eventAction). By default we use the class name with the class's namespace removed. This method gives you access to the underlying `Analytics` class as well.
+With the `broadcastAnalyticsActionAs` method you can customize the name of the [Event Action](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#eventAction). By default we use the class name with the class's namespace removed. This method gives you access to the underlying `Analytics` class as well.
 
 ``` php
 <?php
@@ -102,6 +104,17 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
     }
 }
 ```
+
+## Additional configuration
+
+You can configure some additional settings in the `config/analytics-event-tracking.php` file:
+
+* `use_ssl`: Use SSL to make calls to GA
+* `anonymize_ip`: Anonymize IP when making calls to GA
+* `send_user_id`: Send the ID of the authenticated user to GA
+* `queue_name`: Specify a queue to make the calls to GA
+* `client_id_session_key`: The session key to store the Client ID
+* `http_uri`: HTTP URI to post the Client ID to (from the Blade Directive)
 
 ### Testing
 

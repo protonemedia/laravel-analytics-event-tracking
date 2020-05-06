@@ -2,18 +2,15 @@
 
 namespace ProtoneMedia\AnalyticsEventTracking\Http;
 
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
 class StoreClientIdInSession
 {
-    use ValidatesRequests;
-
     public function __invoke(Request $request, ClientIdSession $clientIsSession)
     {
-        $this->validate($request, ['id' => 'required']);
+        $data = $request->validate(['id' => 'required']);
 
-        $clientIsSession->update($request->input('id'));
+        $clientIsSession->update($data['id']);
 
         return response()->json();
     }

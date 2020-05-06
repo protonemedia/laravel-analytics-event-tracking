@@ -41,7 +41,7 @@ GOOGLE_ANALYTICS_TRACKING_ID=UA-01234567-89
 
 ## Blade Directive
 
-This package comes with a `@sendAnalyticsClientId` directive that stores the `Client ID` from the GA front-end to your Laravel backend. It uses the [Axios HTTP library](https://github.com/axios/axios) the make an asynchronous POST request. Axios was choosen as it is provided by default in the `resources/js/bootstrap.js` file.
+This package comes with a `@sendAnalyticsClientId` directive that stores the `Client ID` from the GA front-end to your Laravel backend. It uses the [Axios HTTP library](https://github.com/axios/axios) the make an asynchronous POST request. Axios was choosen as it is provided by default in Laravel in the `resources/js/bootstrap.js` file.
 
 ```php
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-01234567-89"></script>

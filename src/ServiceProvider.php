@@ -62,7 +62,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(ClientIdRepostory::class, ClientIdSession::class);
 
-        $this->app->bind('analytics-event-tracking-client-id', function () {
+        $this->app->bind('analytics-event-tracking.client-id', function () {
             return $this->app->make(ClientIdSession::class)->get();
         });
 

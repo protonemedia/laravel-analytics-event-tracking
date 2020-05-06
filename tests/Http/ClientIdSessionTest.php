@@ -16,7 +16,7 @@ class ClientIdSessionTest extends TestCase
 
         $this->assertEquals('1337', session('someKey'));
         $this->assertEquals('1337', $clientIdSession->get());
-        $this->assertEquals('1337', app('analytics-event-tracking-client-id'));
+        $this->assertEquals('1337', app('analytics-event-tracking.client-id'));
     }
 
     /** @test */

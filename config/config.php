@@ -8,6 +8,8 @@ return [
     // set to null to disable
     'http_uri' => 'gaid',
 
+    'use_ssl' => true,
+
     'anonymize_ip' => true,
 
     'send_user_id' => true,

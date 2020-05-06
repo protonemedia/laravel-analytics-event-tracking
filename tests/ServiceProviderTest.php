@@ -14,6 +14,18 @@ class ServiceProviderTest extends TestCase
         $this->assertStringContainsString('tid=UA-11111111-11', app(Analytics::class)->getUrl());
     }
 
+    /** @test */
+    public function it_can_disable_ssl()
+    {
+        config(['analytics-event-tracking.use_ssl' => true]);
+
+        $this->assertStringContainsString('https://', app(Analytics::class)->getUrl());
+
+        config(['analytics-event-tracking.use_ssl' => false]);
+
+        $this->assertStringContainsString('http://', app(Analytics::class)->getUrl());
+    }
+
     private function authenticateUser()
     {
         Auth::login(

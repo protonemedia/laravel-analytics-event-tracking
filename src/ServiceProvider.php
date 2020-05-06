@@ -53,21 +53,36 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->app->singleton(EventBroadcaster::class, BroadcastEvent::class);
+
+        $this->registerClientId();
+        $this->registerAnalytics();
+        $this->registerRoute();
+    }
+
+    private function registerClientId()
+    {
         $this->app->singleton(ClientIdRepostory::class, ClientIdSession::class);
 
         $this->app->bind('analytics-event-tracking-client-id', function () {
-            return app(ClientIdSession::class)->get();
+            return $this->app->make(ClientIdSession::class)->get();
         });
 
         $this->app->singleton(ClientIdSession::class, function () {
             return new ClientIdSession(
-                app('session.store'),
+                $this->app->make('session.store'),
                 config('analytics-event-tracking.client_id_session_key')
             );
         });
+    }
 
+    private function registerAnalytics()
+    {
         $this->app->bind(Analytics::class, function () {
-            return tap(new Analytics(true), function (Analytics $analytics) {
+            return tap(new Analytics(config('analytics-event-tracking.use_ssl')), function (Analytics $analytics) {
+                $analytics->setTrackingId(
+                    config('analytics-event-tracking.tracking_id')
+                );
+
                 if (config('analytics-event-tracking.send_user_id') && Auth::check()) {
                     $analytics->setUserId(Auth::id());
                 }
@@ -75,15 +90,16 @@ class ServiceProvider extends BaseServiceProvider
                 if (config('analytics-event-tracking.anonymize_ip')) {
                     $analytics->setAnonymizeIp(1);
                 }
-
-                $analytics->setTrackingId(
-                    config('analytics-event-tracking.tracking_id')
-                );
             });
         });
+    }
 
-        if ($httpUri = config('analytics-event-tracking.http_uri')) {
-            Route::post($httpUri, StoreClientIdInSession::class);
+    private function registerRoute()
+    {
+        if (!$httpUri = config('analytics-event-tracking.http_uri')) {
+            return;
         }
+
+        Route::post($httpUri, StoreClientIdInSession::class);
     }
 }

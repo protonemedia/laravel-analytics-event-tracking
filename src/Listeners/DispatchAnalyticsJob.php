@@ -3,6 +3,7 @@
 namespace ProtoneMedia\AnalyticsEventTracking\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Auth;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepostory;
 use ProtoneMedia\AnalyticsEventTracking\Jobs\SendEventToAnalytics;
 
@@ -22,12 +23,25 @@ class DispatchAnalyticsJob
      */
     public function handle($event): void
     {
-        $job = new SendEventToAnalytics($event, $this->clientIdRepository->get());
+        $job = new SendEventToAnalytics($event, $this->clientIdRepository->get(), $this->userId());
 
         if ($queueName = config('analytics-event-tracking.queue_name')) {
             $job->onQueue($queueName);
         }
 
         dispatch($job);
+    }
+
+    private function userId(): ?string
+    {
+        if (!config('analytics-event-tracking.send_user_id')) {
+            return null;
+        }
+
+        if (!Auth::check()) {
+            return null;
+        }
+
+        return Auth::id();
     }
 }

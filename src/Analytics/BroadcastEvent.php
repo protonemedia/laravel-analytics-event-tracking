@@ -2,7 +2,6 @@
 
 namespace ProtoneMedia\AnalyticsEventTracking\Analytics;
 
-use ProtoneMedia\AnalyticsEventTracking\ShouldBroadcastToAnalytics;
 use TheIconic\Tracking\GoogleAnalytics\Analytics;
 
 class BroadcastEvent implements EventBroadcaster
@@ -29,7 +28,7 @@ class BroadcastEvent implements EventBroadcaster
      * on the events if it exists and then sends the event
      * to Google Analytics.
      */
-    public function handle(ShouldBroadcastToAnalytics $event): void
+    public function handle($event): void
     {
         $eventAction = method_exists($event, 'broadcastAnalyticsActionAs')
             ? $event->broadcastAnalyticsActionAs($this->analytics)

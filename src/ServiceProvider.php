@@ -2,7 +2,6 @@
 
 namespace ProtoneMedia\AnalyticsEventTracking;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
@@ -81,10 +80,6 @@ class ServiceProvider extends BaseServiceProvider
                 $analytics->setTrackingId(
                     config('analytics-event-tracking.tracking_id')
                 );
-
-                if (config('analytics-event-tracking.send_user_id') && Auth::check()) {
-                    $analytics->setUserId(Auth::id());
-                }
 
                 if (config('analytics-event-tracking.anonymize_ip')) {
                     $analytics->setAnonymizeIp(1);

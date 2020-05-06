@@ -39,4 +39,23 @@ class SendEventToAnalyticsTest extends TestCase
 
         SendEventToAnalytics::dispatch($event, '1337');
     }
+
+    /** @test */
+    public function it_sets_the_user_id_if_given_as_constructor_argument()
+    {
+        $event = new BroadcastMe;
+
+        $analytics = $this->mock(Analytics::class)
+            ->shouldReceive('setUserId')
+            ->with('1337')
+            ->andReturnTrue()
+            ->getMock();
+
+        $this->mock(EventBroadcaster::class)
+            ->shouldReceive('handle')
+            ->shouldReceive('withAnalytics')
+            ->withArgs(fn ($callable) => $callable($analytics));
+
+        SendEventToAnalytics::dispatch($event, null, '1337');
+    }
 }

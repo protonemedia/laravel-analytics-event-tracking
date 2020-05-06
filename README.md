@@ -61,7 +61,7 @@ Add the directive somewhere after initializing/configuring GA. The POST request 
 
 If you don't use Axios, you have to implement this call by yourself.
 
-## Broadcast Events to Google Analytics
+## Broadcast events to Google Analytics
 
 Add the `ShouldBroadcastToAnalytics` interface to your event and you're ready! You don't have to manually bind any listeners.
 
@@ -73,7 +73,7 @@ namespace App\Events;
 use App\Order;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use ProtoneMedia\AnalyticsEventTracking\Events\ShouldBroadcastToAnalytics;
+use ProtoneMedia\AnalyticsEventTracking\ShouldBroadcastToAnalytics;
 
 class OrderWasPaid implements ShouldBroadcastToAnalytics
 {
@@ -85,6 +85,36 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
     {
         $this->order = $order;
     }
+}
+```
+
+## Handle framework and 3rd-party events
+
+If you want to handle events where you can't add the `ShouldBroadcastToAnalytics` interface, you can manually register them in your `EventServiceProvider` using the `DispatchAnalyticsJob` listener.
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use ProtoneMedia\AnalyticsEventTracking\Listeners\DispatchAnalyticsJob;
+
+class EventServiceProvider extends ServiceProvider
+{
+    /**
+     * The event listener mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+            DispatchAnalyticsJob::class,
+        ],
+    ];
 }
 ```
 
@@ -105,7 +135,7 @@ use App\Order;
 use TheIconic\Tracking\GoogleAnalytics\Analytics;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use ProtoneMedia\AnalyticsEventTracking\Events\ShouldBroadcastToAnalytics;
+use ProtoneMedia\AnalyticsEventTracking\ShouldBroadcastToAnalytics;
 
 class OrderWasPaid implements ShouldBroadcastToAnalytics
 {

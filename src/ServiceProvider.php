@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEvent;
 use ProtoneMedia\AnalyticsEventTracking\Analytics\EventBroadcaster;
-use ProtoneMedia\AnalyticsEventTracking\Events\ShouldBroadcastToAnalytics;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepostory;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdSession;
 use ProtoneMedia\AnalyticsEventTracking\Http\StoreClientIdInSession;

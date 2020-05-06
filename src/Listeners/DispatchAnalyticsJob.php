@@ -3,7 +3,6 @@
 namespace ProtoneMedia\AnalyticsEventTracking\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
-use ProtoneMedia\AnalyticsEventTracking\Events\ShouldBroadcastToAnalytics;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepostory;
 use ProtoneMedia\AnalyticsEventTracking\Jobs\SendEventToAnalytics;
 
@@ -21,7 +20,7 @@ class DispatchAnalyticsJob
     /**
      * Gets the Client ID from the repository and dispatched the event
      */
-    public function handle(ShouldBroadcastToAnalytics $event): void
+    public function handle($event): void
     {
         $job = new SendEventToAnalytics($event, $this->clientIdRepository->get());
 

@@ -53,9 +53,10 @@ Add the directive somewhere after initializing/configuring GA. The POST request 
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'UA-01234567-89');
-
-  @sendAnalyticsClientId
+  gtag('config', 'UA-01234567-89', { 'send_page_view': false });
+  gtag('event', 'page_view', { 'event_callback': function() {
+      @sendAnalyticsClientId
+  }});
 </script>
 ```
 

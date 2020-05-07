@@ -4,4 +4,4 @@ ga(function () {
     if(clientId != @json(app('analytics-event-tracking.client-id'))) {
         window.axios.post('/gaid', { id: clientId });
     }
-}
+});

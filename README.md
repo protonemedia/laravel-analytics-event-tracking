@@ -59,7 +59,7 @@ Add the directive somewhere after initializing/configuring GA. The POST request 
 </script>
 ```
 
-If you don't use Axios, you have to implement this call by yourself.
+If you don't use Axios, you have to implement this call by yourself. By default the endpoint is `/gaid` but you can customize it in the configuration file. The request is handled by the `ProtoneMedia\AnalyticsEventTracking\Http\StoreClientIdInSession` class. Make sure to also send the [CSRF token](https://laravel.com/docs/7.x/csrf).
 
 ## Broadcast events to Google Analytics
 
@@ -165,9 +165,9 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
 You can configure some additional settings in the `config/analytics-event-tracking.php` file:
 
 * `use_ssl`: Use SSL to make calls to GA
-* `anonymize_ip`: Anonymize IP when making calls to GA
+* `anonymize_ip`: Anonymizes the last digits of the user's IP
 * `send_user_id`: Send the ID of the authenticated user to GA
-* `queue_name`: Specify a queue to make the calls to GA
+* `queue_name`: Specify a queue to perform the calls to GA
 * `client_id_session_key`: The session key to store the Client ID
 * `http_uri`: HTTP URI to post the Client ID to (from the Blade Directive)
 

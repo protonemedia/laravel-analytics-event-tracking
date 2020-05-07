@@ -13,14 +13,14 @@ return [
     'use_ssl' => true,
 
     /**
-     * Anonymize IP when making calls to GA.
+     * Anonymizes the last digits of the user's IP.
      */
     'anonymize_ip' => true,
 
     /**
      * Send the ID of the authenticated user to GA.
      */
-    'send_user_id' => true,
+    'send_user_id' => false,
 
     /*
      * This queue will be used to perform the API calls to GA.

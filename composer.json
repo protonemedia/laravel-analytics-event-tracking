@@ -1,6 +1,6 @@
 {
     "name": "protonemedia/laravel-analytics-event-tracking",
-    "description": "",
+    "description": "Laravel package to easily send events to Google Analytics",
     "keywords": [
         "protonemedia",
         "laravel",

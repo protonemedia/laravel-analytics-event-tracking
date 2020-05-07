@@ -77,7 +77,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app->bind(Analytics::class, function () {
             return tap(new Analytics(config('analytics-event-tracking.use_ssl')), function (Analytics $analytics) {
-                $analytics->setTrackingId(
+                $analytics->setProtocolVersion(1)->setTrackingId(
                     config('analytics-event-tracking.tracking_id')
                 );
 

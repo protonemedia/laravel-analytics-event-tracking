@@ -38,10 +38,6 @@ class DispatchAnalyticsJob
             return null;
         }
 
-        if (!Auth::check()) {
-            return null;
-        }
-
         return Auth::id();
     }
 }

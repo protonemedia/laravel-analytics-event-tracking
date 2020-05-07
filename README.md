@@ -151,7 +151,7 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
 
     public function withAnalytics(Analytics $analytics)
     {
-        $analytics->setEventValue($this->order->sum_in_cents * 100);
+        $analytics->setEventValue($this->order->sum_in_cents / 100);
     }
 
     public function broadcastAnalyticsActionAs(Analytics $analytics)

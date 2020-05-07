@@ -90,10 +90,8 @@ class ServiceProvider extends BaseServiceProvider
 
     private function registerRoute()
     {
-        if (!$httpUri = config('analytics-event-tracking.http_uri')) {
-            return;
+        if ($httpUri = config('analytics-event-tracking.http_uri')) {
+            Route::post($httpUri, StoreClientIdInSession::class);
         }
-
-        Route::post($httpUri, StoreClientIdInSession::class);
     }
 }

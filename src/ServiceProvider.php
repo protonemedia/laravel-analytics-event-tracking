@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEvent;
 use ProtoneMedia\AnalyticsEventTracking\Analytics\EventBroadcaster;
-use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepostory;
+use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepository;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdSession;
 use ProtoneMedia\AnalyticsEventTracking\Http\StoreClientIdInSession;
 use ProtoneMedia\AnalyticsEventTracking\Listeners\DispatchAnalyticsJob;
@@ -59,7 +59,7 @@ class ServiceProvider extends BaseServiceProvider
 
     private function registerClientId()
     {
-        $this->app->singleton(ClientIdRepostory::class, ClientIdSession::class);
+        $this->app->singleton(ClientIdRepository::class, ClientIdSession::class);
 
         $this->app->bind('analytics-event-tracking.client-id', function () {
             return $this->app->make(ClientIdSession::class)->get();

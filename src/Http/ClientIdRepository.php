@@ -2,7 +2,7 @@
 
 namespace ProtoneMedia\AnalyticsEventTracking\Http;
 
-interface ClientIdRepostory
+interface ClientIdRepository
 {
     public function update(string $clientId): void;
 

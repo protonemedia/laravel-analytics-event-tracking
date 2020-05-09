@@ -77,7 +77,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use ProtoneMedia\AnalyticsEventTracking\ShouldBroadcastToAnalytics;
 
-class OrderWasPaid implements ShouldBroadcastToAnalytics
+class OrderWasCreated implements ShouldBroadcastToAnalytics
 {
     use Dispatchable, SerializesModels;
 
@@ -139,7 +139,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use ProtoneMedia\AnalyticsEventTracking\ShouldBroadcastToAnalytics;
 
-class OrderWasPaid implements ShouldBroadcastToAnalytics
+class OrderWasCreated implements ShouldBroadcastToAnalytics
 {
     use Dispatchable, SerializesModels;
 
@@ -158,6 +158,63 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
     public function broadcastAnalyticsActionAs(Analytics $analytics)
     {
         return 'CustomEventAction';
+    }
+}
+```
+
+## Handling the Client ID outside a HTTP Request
+
+You might want to track an event that occurs outside of a HTTP Request, for example in a queued job or while handling a 3rd-party callback/webhook. Let's continue with the `Order` example. When the `Order` is created, you could save the `Client ID` in the database.
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Order;
+use App\Http\Requests\CreateOrderRequest;
+use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepository;
+
+class CreateOrderController
+{
+    public function __invoke(CreateOrderRequest $request, ClientIdRepository $clientId)
+    {
+        $attributes = $request->validated();
+
+        $attributes['google_analytics_client_id'] = $clientId->get();
+
+        return Order::create($attributes);
+    }
+}
+```
+
+When you receive a webhook from your payment provider and you dispatch an `OrderWasPaid` event, you can use the `withAnalytics` method in your event to reuse the `google_analytics_client_id`:
+
+``` php
+<?php
+
+namespace App\Events;
+
+use App\Order;
+use TheIconic\Tracking\GoogleAnalytics\Analytics;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use ProtoneMedia\AnalyticsEventTracking\ShouldBroadcastToAnalytics;
+
+class OrderWasPaid implements ShouldBroadcastToAnalytics
+{
+    use Dispatchable, SerializesModels;
+
+    public $order;
+
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+
+    public function withAnalytics(Analytics $analytics)
+    {
+        $analytics->setClientId($this->order->google_analytics_client_id);
     }
 }
 ```

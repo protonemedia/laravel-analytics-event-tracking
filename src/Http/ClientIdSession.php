@@ -5,7 +5,7 @@ namespace ProtoneMedia\AnalyticsEventTracking\Http;
 use Illuminate\Session\Store;
 use Illuminate\Support\Str;
 
-class ClientIdSession implements ClientIdRepostory
+class ClientIdSession implements ClientIdRepository
 {
     private Store $session;
     private string $key;

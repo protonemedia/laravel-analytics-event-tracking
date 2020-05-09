@@ -4,16 +4,16 @@ namespace ProtoneMedia\AnalyticsEventTracking\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
-use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepostory;
+use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepository;
 use ProtoneMedia\AnalyticsEventTracking\Jobs\SendEventToAnalytics;
 
 class DispatchAnalyticsJob
 {
     use InteractsWithQueue;
 
-    public ClientIdRepostory $clientIdRepository;
+    public ClientIdRepository $clientIdRepository;
 
-    public function __construct(ClientIdRepostory $clientIdRepository)
+    public function __construct(ClientIdRepository $clientIdRepository)
     {
         $this->clientIdRepository = $clientIdRepository;
     }

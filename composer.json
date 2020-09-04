@@ -10,7 +10,7 @@
         "laravel-analytics-event-tracking",
         "analytics-event-tracking"
     ],
-    "homepage": "https://github.com/pascalbaljetmedia/laravel-analytics-event-tracking",
+    "homepage": "https://github.com/protonemedia/laravel-analytics-event-tracking",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -22,14 +22,14 @@
     ],
     "require": {
         "php": "^7.4",
-        "illuminate/bus": "^6.0 || ^7.0",
-        "illuminate/queue": "^6.0 || ^7.0",
-        "illuminate/http": "^6.0 || ^7.0",
-        "illuminate/validation": "^6.0 || ^7.0",
+        "illuminate/bus": "^6.0 || ^7.0 || ^8.0",
+        "illuminate/queue": "^6.0 || ^7.0 || ^8.0",
+        "illuminate/http": "^6.0 || ^7.0 || ^8.0",
+        "illuminate/validation": "^6.0 || ^7.0 || ^8.0",
         "theiconic/php-ga-measurement-protocol": "^2.7"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0 || ^5.0",
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
         "mockery/mockery": "^1.3",
         "phpunit/phpunit": "^8.3"
     },
@@ -50,6 +50,8 @@
     "config": {
         "sort-packages": true
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "laravel": {
             "providers": [

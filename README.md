@@ -15,7 +15,7 @@ Laravel package to easily send events to [Google Analytics](https://analytics.go
 * Full access to the [underlying library](https://github.com/theiconic/php-ga-measurement-protocol).
 * API calls to GA are queued.
 * Easy to configure.
-* Compatible with Laravel 6.0 and 7.0.
+* Compatible with Laravel 6.0 and higher.
 * PHP 7.4 required.
 
 ## Installation

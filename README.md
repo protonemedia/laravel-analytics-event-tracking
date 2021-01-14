@@ -44,6 +44,8 @@ Set your [Google Analytics Tracking ID](https://support.google.com/analytics/ans
 GOOGLE_ANALYTICS_TRACKING_ID=UA-01234567-89
 ```
 
+This package supports [Google Analytics 4](https://blog.google/products/marketingplatform/analytics/new_google_analytics/) as of version 1.2.1. Please republish the view file if you're upgrading to a new Google Analytics 4 property.
+
 ## Blade Directive
 
 This package comes with a `@sendAnalyticsClientId` directive that sends the [Client ID](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#clientId) from the GA front-end to your Laravel backend and stores it in the session.

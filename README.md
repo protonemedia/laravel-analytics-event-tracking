@@ -9,6 +9,10 @@ https://twitter.com/pascalbaljet/status/1257926601339277312
 
 Laravel package to easily send events to [Google Analytics](https://analytics.google.com/)
 
+## Launcher 🚀
+
+Hey! We've built a Docker-based deployment tool to launch apps and sites fully containerized. You can find all features and the roadmap on our [website](https://uselauncher.com), and we are on [Twitter](https://twitter.com/uselauncher) as well!
+
 ## Features
 * Use [Laravel Events](https://laravel.com/docs/7.x/events) to track events with GA.
 * [Blade Directive](https://laravel.com/docs/7.x/blade#introduction) to easily store the Client ID.

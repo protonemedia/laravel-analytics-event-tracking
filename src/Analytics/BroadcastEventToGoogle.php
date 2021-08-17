@@ -4,7 +4,7 @@ namespace ProtoneMedia\AnalyticsEventTracking\Analytics;
 
 use TheIconic\Tracking\GoogleAnalytics\Analytics;
 
-class BroadcastEvent implements EventBroadcaster
+class BroadcastEventToGoogle implements EventBroadcaster
 {
     private Analytics $analytics;
 

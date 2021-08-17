@@ -34,7 +34,7 @@ class DispatchAnalyticsJob
 
     private function userId(): ?string
     {
-        if (!config('analytics-event-tracking.send_user_id')) {
+        if (!config('analytics-event-tracking.google.send_user_id')) {
             return null;
         }
 

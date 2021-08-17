@@ -2,14 +2,14 @@
 
 namespace ProtoneMedia\AnalyticsEventTracking\Tests\Analytics;
 
-use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEvent;
+use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEventToGoogle;
 use ProtoneMedia\AnalyticsEventTracking\Tests\Fakes\BroadcastAs;
 use ProtoneMedia\AnalyticsEventTracking\Tests\Fakes\BroadcastMe;
 use ProtoneMedia\AnalyticsEventTracking\Tests\Fakes\BroadcastMeWithCallback;
 use ProtoneMedia\AnalyticsEventTracking\Tests\TestCase;
 use TheIconic\Tracking\GoogleAnalytics\Analytics;
 
-class BroadcastEventTest extends TestCase
+class BroadcastEventToGoogleTest extends TestCase
 {
     /** @test */
     public function it_sends_the_basename_as_event_action()
@@ -19,7 +19,7 @@ class BroadcastEventTest extends TestCase
         $analytics->shouldReceive('setEventAction')->with('BroadcastMe');
         $analytics->shouldReceive('sendEvent');
 
-        $broadcaster = new BroadcastEvent($analytics);
+        $broadcaster = new BroadcastEventToGoogle($analytics);
         $broadcaster->handle(new BroadcastMe);
     }
 
@@ -31,7 +31,7 @@ class BroadcastEventTest extends TestCase
         $analytics->shouldReceive('setEventAction')->with('CustomEventAction');
         $analytics->shouldReceive('sendEvent');
 
-        $broadcaster = new BroadcastEvent($analytics);
+        $broadcaster = new BroadcastEventToGoogle($analytics);
         $broadcaster->handle(new BroadcastAs);
     }
 
@@ -44,7 +44,7 @@ class BroadcastEventTest extends TestCase
         $analytics->shouldReceive('setEventValue')->with(100);
         $analytics->shouldReceive('sendEvent');
 
-        $broadcaster = new BroadcastEvent($analytics);
+        $broadcaster = new BroadcastEventToGoogle($analytics);
         $broadcaster->handle(new BroadcastMeWithCallback);
     }
 
@@ -56,7 +56,7 @@ class BroadcastEventTest extends TestCase
             ->with(1337)
             ->getMock();
 
-        $broadcaster = new BroadcastEvent($analytics);
+        $broadcaster = new BroadcastEventToGoogle($analytics);
 
         $broadcaster->withAnalytics(fn ($analytics) => $analytics->setClientId(1337));
     }

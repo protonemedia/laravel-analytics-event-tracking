@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEvent;
+use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEventToFathom;
+use ProtoneMedia\AnalyticsEventTracking\Analytics\BroadcastEventToGoogle;
 use ProtoneMedia\AnalyticsEventTracking\Analytics\EventBroadcaster;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdRepository;
 use ProtoneMedia\AnalyticsEventTracking\Http\ClientIdSession;
@@ -34,10 +35,6 @@ class ServiceProvider extends BaseServiceProvider
         }
 
         Event::listen(ShouldBroadcastToAnalytics::class, DispatchAnalyticsJob::class);
-
-        Blade::directive('sendAnalyticsClientId', function () {
-            return "<?php echo view('analytics-event-tracking::sendCliendId'); ?>";
-        });
     }
 
     /**
@@ -50,38 +47,48 @@ class ServiceProvider extends BaseServiceProvider
             'analytics-event-tracking'
         );
 
-        $this->app->singleton(EventBroadcaster::class, BroadcastEvent::class);
+        if (config('analytics-event-tracking.provider') === 'fathom') {
+            $this->app->singleton(EventBroadcaster::class, BroadcastEventToFathom::class);
+        }
 
-        $this->registerClientId();
-        $this->registerAnalytics();
-        $this->registerRoute();
+        if (config('analytics-event-tracking.provider') === 'google') {
+            Blade::directive('sendAnalyticsClientId', function () {
+                return "<?php echo view('analytics-event-tracking::sendCliendId'); ?>";
+            });
+
+            $this->app->singleton(EventBroadcaster::class, BroadcastEventToGoogle::class);
+
+            $this->registerClientId();
+            $this->registerGoogleAnalytics();
+            $this->registerRoute();
+        }
     }
 
     private function registerClientId()
     {
         $this->app->singleton(ClientIdRepository::class, ClientIdSession::class);
 
-        $this->app->bind('analytics-event-tracking.client-id', function () {
+        $this->app->bind('analytics-event-tracking.google.client-id', function () {
             return $this->app->make(ClientIdSession::class)->get();
         });
 
         $this->app->singleton(ClientIdSession::class, function () {
             return new ClientIdSession(
                 $this->app->make('session.store'),
-                config('analytics-event-tracking.client_id_session_key')
+                config('analytics-event-tracking.google.client_id_session_key')
             );
         });
     }
 
-    private function registerAnalytics()
+    private function registerGoogleAnalytics()
     {
         $this->app->bind(Analytics::class, function () {
-            return tap(new Analytics(config('analytics-event-tracking.use_ssl')), function (Analytics $analytics) {
+            return tap(new Analytics(config('analytics-event-tracking.google.use_ssl')), function (Analytics $analytics) {
                 $analytics->setProtocolVersion(1)->setTrackingId(
-                    config('analytics-event-tracking.tracking_id')
+                    config('analytics-event-tracking.google.tracking_id')
                 );
 
-                if (config('analytics-event-tracking.anonymize_ip')) {
+                if (config('analytics-event-tracking.google.anonymize_ip')) {
                     $analytics->setAnonymizeIp(1);
                 }
             });
@@ -90,7 +97,7 @@ class ServiceProvider extends BaseServiceProvider
 
     private function registerRoute()
     {
-        if ($httpUri = config('analytics-event-tracking.http_uri')) {
+        if ($httpUri = config('analytics-event-tracking.google.http_uri')) {
             Route::post($httpUri, StoreClientIdInSession::class)->middleware('web');
         }
     }

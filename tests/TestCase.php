@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('analytics-event-tracking.tracking_id', 'UA-11111111-11');
+        $app['config']->set('analytics-event-tracking.google.tracking_id', 'UA-11111111-11');
     }
 
     protected function getPackageProviders($app)

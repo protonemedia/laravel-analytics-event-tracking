@@ -15,7 +15,7 @@ class BladeDirectiveTest extends TestCase
         View::addLocation(__DIR__);
 
         $this->assertStringContainsString(
-            app('analytics-event-tracking.client-id'),
+            app('analytics-event-tracking.google.client-id'),
             view('javascriptView')->render()
         );
     }

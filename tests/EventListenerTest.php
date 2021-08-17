@@ -46,7 +46,7 @@ class EventListenerTest extends TestCase
     /** @test */
     public function it_sets_the_user_id_if_authenticated_and_configuration_setting_is_enabled()
     {
-        config(['analytics-event-tracking.send_user_id' => true]);
+        config(['analytics-event-tracking.google.send_user_id' => true]);
 
         $this->authenticateUser();
 
@@ -62,7 +62,7 @@ class EventListenerTest extends TestCase
     /** @test */
     public function it_doesnt_set_the_user_id_if_authenticated_and_configuration_setting_is_disabled()
     {
-        config(['analytics-event-tracking.send_user_id' => false]);
+        config(['analytics-event-tracking.google.send_user_id' => false]);
 
         $this->authenticateUser();
 
@@ -78,7 +78,7 @@ class EventListenerTest extends TestCase
     /** @test */
     public function it_doesnt_set_the_user_id_if_not_authenticated()
     {
-        config(['analytics-event-tracking.send_user_id' => true]);
+        config(['analytics-event-tracking.google.send_user_id' => true]);
 
         Bus::fake();
 

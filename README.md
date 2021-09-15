@@ -59,12 +59,12 @@ It uses the [Axios HTTP library](https://github.com/axios/axios) the make an asy
 Add the directive somewhere after initializing/configuring GA. The POST request will only be made if the `Client ID` isn't stored yet or when it's refreshed.
 
 ```php
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-01234567-89"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ config('analytics-event-tracking.tracking_id') }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'UA-01234567-89', { 'send_page_view': false });
+  gtag('config', '{{ config('analytics-event-tracking.tracking_id') }}', { 'send_page_view': false });
   gtag('event', 'page_view', { 'event_callback': function() {
       @sendAnalyticsClientId
   }});

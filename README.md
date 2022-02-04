@@ -19,7 +19,7 @@ Hey! We've built a Docker-based deployment tool to launch apps and sites fully c
 * Full access to the [underlying library](https://github.com/theiconic/php-ga-measurement-protocol).
 * API calls to GA are queued.
 * Easy to configure.
-* Compatible with Laravel 8.0.
+* Compatible with Laravel 8.0 and 9.0.
 * PHP 7.4 or higher required.
 
 ## Support

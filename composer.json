@@ -22,14 +22,14 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0 || ^8.1",
-        "illuminate/bus": "^8.67",
-        "illuminate/queue": "^8.67",
-        "illuminate/http": "^8.67",
-        "illuminate/validation": "^8.67",
+        "illuminate/bus": "^8.67 || ^9.0",
+        "illuminate/queue": "^8.67 || ^9.0",
+        "illuminate/http": "^8.67 || ^9.0",
+        "illuminate/validation": "^8.67 || ^9.0",
         "theiconic/php-ga-measurement-protocol": "^2.7"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.23",
+        "orchestra/testbench": "^6.23 || ^7.0",
         "mockery/mockery": "^1.3.3",
         "phpunit/phpunit": "^9.4"
     },

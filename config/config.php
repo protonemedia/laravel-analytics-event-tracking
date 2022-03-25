@@ -8,6 +8,11 @@ return [
     'tracking_id' => env('GOOGLE_ANALYTICS_TRACKING_ID'),
 
     /**
+     * Disable events from being sent to GA
+     */
+    'is_disabled' => false,
+
+    /**
      * Use SSL to make calls to GA.
      */
     'use_ssl' => true,

@@ -30,6 +30,11 @@ class BroadcastEvent implements EventBroadcaster
      */
     public function handle($event): void
     {
+
+        if (config('analytics-event-tracking.is_disabled')) {
+            return;
+        }
+
         $eventAction = method_exists($event, 'broadcastAnalyticsActionAs')
             ? $event->broadcastAnalyticsActionAs($this->analytics)
             : class_basename($event);

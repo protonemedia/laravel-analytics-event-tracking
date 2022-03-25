@@ -23,6 +23,19 @@ class EventListenerTest extends TestCase
     }
 
     /** @test */
+    public function it_will_not_dispatch_if_disabled()
+    {
+        Bus::fake();
+
+        config([ 'analytics-event-tracking.is_disabled' => true ]);
+
+        event(new BroadcastMe);
+
+        Bus::assertNotDispatched(SendEventToAnalytics::class);
+
+    }
+
+    /** @test */
     public function it_can_dispatch_jobs_on_a_dedicated_queue()
     {
         Bus::fake();

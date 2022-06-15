@@ -10,11 +10,11 @@ class StoreClientIdInSession
     /**
      * Stores the posted Client ID in the session.
      */
-    public function __invoke(Request $request, ClientIdSession $clientIsSession): JsonResponse
+    public function __invoke(Request $request, ClientIdSession $clientIdSession): JsonResponse
     {
         $data = $request->validate(['id' => 'required|string|max:255']);
 
-        $clientIsSession->update($data['id']);
+        $clientIdSession->update($data['id']);
 
         return response()->json();
     }

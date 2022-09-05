@@ -9,9 +9,15 @@ https://twitter.com/pascalbaljet/status/1257926601339277312
 
 Laravel package to easily send events to [Google Analytics](https://analytics.google.com/)
 
-## Launcher 🚀
+## Support this package!
 
-Hey! We've built a Docker-based deployment tool to launch apps and sites fully containerized. You can find all features and the roadmap on our [website](https://uselauncher.com), and we are on [Twitter](https://twitter.com/uselauncher) as well!
+❤️ We proudly support the community by developing Laravel packages and giving them away for free. If this package saves you time or if you're relying on it professionally, please consider [sponsoring the maintenance and development](https://github.com/sponsors/pascalbaljet). Keeping track of issues and pull requests takes time, but we're happy to help!
+
+## Laravel Splade
+
+**Did you hear about Laravel Splade? 🤩**
+
+It's the *magic* of Inertia.js with the *simplicity* of Blade. [Splade](https://github.com/protonemedia/laravel-splade) provides a super easy way to build Single Page Applications using Blade templates. Besides that magic SPA-feeling, it comes with more than ten components to sparkle your app and make it interactive, all without ever leaving Blade.
 
 ## Features
 * Use [Laravel Events](https://laravel.com/docs/7.x/events) to track events with GA.
@@ -21,10 +27,6 @@ Hey! We've built a Docker-based deployment tool to launch apps and sites fully c
 * Easy to configure.
 * Compatible with Laravel 8.0 and 9.0.
 * PHP 7.4 or higher required.
-
-## Support
-
-We proudly support the community by developing Laravel packages and giving them away for free. Keeping track of issues and pull requests takes time, but we're happy to help! If this package saves you time or if you're relying on it professionally, please consider [supporting the maintenance and development](https://github.com/sponsors/pascalbaljet).
 
 ## Installation
 

@@ -9,7 +9,7 @@ https://twitter.com/pascalbaljet/status/1257926601339277312
 
 Laravel package to easily send events to [Google Analytics](https://analytics.google.com/)
 
-## Support this package!
+## Sponsor this package!
 
 ❤️ We proudly support the community by developing Laravel packages and giving them away for free. If this package saves you time or if you're relying on it professionally, please consider [sponsoring the maintenance and development](https://github.com/sponsors/pascalbaljet). Keeping track of issues and pull requests takes time, but we're happy to help!
 
@@ -25,8 +25,8 @@ It's the *magic* of Inertia.js with the *simplicity* of Blade. [Splade](https://
 * Full access to the [underlying library](https://github.com/theiconic/php-ga-measurement-protocol).
 * API calls to GA are queued.
 * Easy to configure.
-* Compatible with Laravel 8.0 and 9.0.
-* PHP 7.4 or higher required.
+* Compatible with Laravel 9.0.
+* PHP 8.0 or higher required.
 
 ## Installation
 

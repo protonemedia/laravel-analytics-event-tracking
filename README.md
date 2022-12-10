@@ -234,7 +234,7 @@ class OrderWasPaid implements ShouldBroadcastToAnalytics
 You can configure some additional settings in the `config/analytics-event-tracking.php` file:
 
 * `use_ssl`: Use SSL to make calls to GA
-* `is_disabled`: Prevent events from being sent to GA
+* `is_enabled`: Set to `false` to prevent events from being sent to GA
 * `anonymize_ip`: Anonymizes the last digits of the user's IP
 * `send_user_id`: Send the ID of the authenticated user to GA
 * `queue_name`: Specify a queue to perform the calls to GA

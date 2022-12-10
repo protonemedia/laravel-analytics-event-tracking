@@ -2,6 +2,7 @@
 
 namespace ProtoneMedia\AnalyticsEventTracking\Tests;
 
+use ProtoneMedia\AnalyticsEventTracking\ServiceProvider;
 use TheIconic\Tracking\GoogleAnalytics\Analytics;
 
 class ServiceProviderTest extends TestCase
@@ -10,6 +11,24 @@ class ServiceProviderTest extends TestCase
     public function it_sets_the_tracking_id_from_the_configuration()
     {
         $this->assertStringContainsString('tid=UA-11111111-11', app(Analytics::class)->getUrl());
+    }
+
+    /** @test */
+    public function it_can_disable_sending_events()
+    {
+        config(['analytics-event-tracking.is_enabled' => false]);
+
+        $serviceProvider = new ServiceProvider($this->app);
+        $serviceProvider->registerAnalytics();
+
+        $analytics = $this->app->make(Analytics::class);
+
+        // Make 'isDisabled' protected property accessible
+        $reflection = new \ReflectionClass($analytics);
+        $property   = $reflection->getProperty('isDisabled');
+        $property->setAccessible(true);
+
+        $this->assertTrue($property->getValue($analytics));
     }
 
     /** @test */

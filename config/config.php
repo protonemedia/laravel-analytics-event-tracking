@@ -8,6 +8,11 @@ return [
     'tracking_id' => env('GOOGLE_ANALYTICS_TRACKING_ID'),
 
     /**
+     * Enable sending events to GA.
+     */
+    'is_enabled' => true,
+
+    /**
      * Use SSL to make calls to GA.
      */
     'use_ssl' => true,

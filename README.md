@@ -1,3 +1,5 @@
+> :warning: This package is unmaintained and doesn't work with GA4.
+
 # Laravel Analytics Event Tracking
 https://twitter.com/pascalbaljet/status/1257926601339277312
 
